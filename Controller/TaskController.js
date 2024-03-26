@@ -3,6 +3,7 @@
 const Task = require("../models/Task");
 const User = require("../models/User");
 
+// add task in task list
 exports.addReminder = async (req, res) => {
     try {
         const createdBy = req.user.id
@@ -17,7 +18,7 @@ exports.addReminder = async (req, res) => {
     }
 };
 
-
+// get all reminder for user logged in
 exports.getReminder = async (req, res) => {
   try {
 
@@ -40,7 +41,7 @@ exports.getReminder = async (req, res) => {
     }
 }
 
-
+// update reminder details of a particular reminder
 exports.updateReminder = async (req, res) => {
   try {
     const TaskId = req.params.taskId;
@@ -61,7 +62,7 @@ exports.updateReminder = async (req, res) => {
     }
 }
 
-
+// delete a particular reminder 
 exports.deleteReminder = async (req, res) => {
     try {
         const  TaskId  = req.params.taskId;
@@ -77,21 +78,21 @@ exports.deleteReminder = async (req, res) => {
     }
 }
 
-
+// all task which are going to have duedate today
 exports.upcomingReminder = async (req, res) => {
     try {
         const userId = req.params.id;
-        console.log("1");
+      
         const user = await User.findById(userId)
         if (!user) {
             return res.send( "User Not Found!" );
         }
-                console.log("3");
+       
         const upComingTask = await Task.find({
             createdBy: userId,
             dueDate: { $gte: new Date() },
         }).populate('createdBy');
-                console.log("2");
+               
         if (upComingTask.length <= 0) {
             return res.send("You have no upcoming Tasks" );
         }
@@ -101,7 +102,7 @@ exports.upcomingReminder = async (req, res) => {
     }
 }
 
-
+// notifification api
 exports.pushNotification = async (req, res) => {
     try {
         const userId = req.params.id;
