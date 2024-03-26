@@ -3,7 +3,7 @@ const app = express();
 const PORT = process.env.PORT || 1337;
 const serverless = require("serverless-http")
 const session = require("express-session");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 // const flash = require("connect-flash");
 
 
