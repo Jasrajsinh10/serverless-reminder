@@ -23,6 +23,10 @@ const userschema = new mongoose.Schema({
     type: String,
     required: true
   },
+  emailpassword: {
+    type: String,
+    required:true
+  },
   accesstoken: {
     type: String
   }
