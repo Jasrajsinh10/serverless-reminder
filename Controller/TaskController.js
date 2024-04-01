@@ -21,12 +21,12 @@ exports.addReminder = async (req, res) => {
 // get all reminder for user logged in
 exports.getReminder = async (req, res) => {
   try {
-
-    const data = await Task.find({_id: req.params.id }).populate('createdBy');
-      
+    console.log(req.params.id)
+    const data = await Task.find({_id: req.params.id });
+      console.log(data)
 
     const user = await User.findById(data[0].createdBy);
-
+  console.log(user)
         if (!user) {
             return res.send( "User Not Found!" );
         }
@@ -35,9 +35,9 @@ exports.getReminder = async (req, res) => {
         if (data.length === 0) {
             return res.status(404).send( "No data foun" );
         }
-      res.json({ data, user });
+      res.json({data, user });
     } catch (error) {
-      return res.send("error => ",error);
+      return res.status(500).send(error);
     }
 }
 
@@ -121,8 +121,8 @@ try {
     const year = today.getFullYear();
     console.log("22")
     // Format today's date as YYYY-MM-DD
-    // const formattedDate = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
-    const formattedDate = '2024-03-28T00:00:00.000+00:00'
+    const formattedDate = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
+    // const formattedDate = '2024-03-28T00:00:00.000+00:00'
     console.log(formattedDate)
 
     // Find tasks with due date equal to today's date
